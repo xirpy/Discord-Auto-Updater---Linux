@@ -8,9 +8,6 @@ Este script automatiza a instalação e atualização do Discord Canary para sis
 
 - Instalação automática do Discord Canary
 - Verificação e atualização em segundo plano
-- Notificações de sistema para atualizações
-- Suporte a múltiplos gerenciadores de notificação
-- Criação de ícone no menu de aplicativos
 
 ## 🛠️ Pré-requisitos
 
