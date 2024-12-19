@@ -79,6 +79,29 @@ fix_chrome_sandbox_permissions() {
     }
 }
 
+# Instala pacotes necessários
+install_required_packages() {
+    if [[ -f /etc/os-release ]]; then
+        . /etc/os-release
+        case "$ID" in
+            ubuntu | debian)
+                sudo apt-get update
+                sudo apt-get install -y curl wget jq libnotify-bin kdialog zenity
+                ;;
+            fedora)
+                sudo dnf install -y curl wget jq libnotify kdialog zenity
+                ;;
+            *)
+                log_error "Distribuição não suportada: $ID"
+                exit 1
+                ;;
+        esac
+    else
+        log_error "Não foi possível detectar a distribuição do sistema."
+        exit 1
+    fi
+}
+
 # Instala o Discord Canary
 install_discord() {
     local temp_tar="$1"
@@ -308,6 +331,9 @@ main() {
     local latest_url
     local filename
     local TEMP_TAR
+
+    # Instala pacotes necessários
+    install_required_packages
 
     # Obtém a URL de download
     latest_url=$(get_redirect_url "$TAR_URL")
